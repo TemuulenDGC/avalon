@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVALON // TACTICAL_OS_V2</title>
+    <title>AVALON // GLOBAL_DEFENSE_OS</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body class="crt">
+    <canvas id="matrixCanvas"></canvas>
+    
     <div id="bootScreen" class="boot-overlay">
-        <div class="boot-text" id="bootText"></div>
-        <div class="loader"></div>
+        <div class="boot-content">
+            <div class="glitch-large" data-text="AVALON">AVALON</div>
+            <div id="bootText"></div>
+            <div class="loader"></div>
+        </div>
     </div>
 
     <div class="dashboard-container">
         <aside class="sidebar">
             <div class="header-box">
-                <h1 class="glitch" data-text="AVALON">AVALON_V2</h1>
+                <h1 class="glitch">AVALON_X_PRO</h1>
                 <div class="status-row">
                     <span class="status-dot pulse"></span> <span id="clock">00:00:00</span>
                 </div>
@@ -26,34 +31,35 @@
                 <div class="label">SEC_OPERATOR</div>
                 <div class="rank">JUNIOR SERGEANT</div>
                 <div class="user">TEMUULEN DGC</div>
-                <div class="clearance">CLEARANCE: LVL_3</div>
+                <div class="clearance">AUTH_LEVEL_MAX</div>
             </div>
 
             <div class="metrics">
                 <div class="metric-item">
-                    <label>CORE_TEMP</label>
+                    <label>CORE_ENCRYPT_LOAD</label>
                     <div class="bar-bg"><div class="bar-fill" id="tempBar" style="width: 65%;"></div></div>
                 </div>
                 <div class="metric-item">
-                    <label>UPLINK_SPEED</label>
+                    <label>SAT_UPLINK</label>
                     <div class="bar-bg"><div class="bar-fill" id="netBar" style="width: 88%;"></div></div>
                 </div>
-                <div class="metric-item">
-                    <label>MEMORY_LOAD</label>
-                    <div class="bar-bg"><div class="bar-fill" id="ramBar" style="width: 32%;"></div></div>
-                </div>
+            </div>
+
+            <div class="module-box">
+                <div class="module-title">ACTIVE_LOGS</div>
+                <div id="miniLog" class="mini-log"></div>
             </div>
         </aside>
 
         <main class="terminal-container">
             <div class="terminal-header">
-                <span>TERMINAL_SESSION://001</span>
-                <span class="encryption-tag">AES-256_ACTIVE</span>
+                <span class="blink">●</span> DIRECT_ACCESS_NODE://ROOT
+                <span class="encryption-tag">RSA_4096_ACTIVE</span>
             </div>
             <div id="terminalContent" class="terminal-content"></div>
             <div class="input-area">
-                <span class="prompt">USER@AVALON:~#</span>
-                <input type="text" id="terminalInput" autofocus spellcheck="false">
+                <span class="prompt">ROOT@AVALON:~$</span>
+                <input type="text" id="terminalInput" autofocus spellcheck="false" autocomplete="off">
             </div>
         </main>
     </div>
