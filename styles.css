@@ -1,0 +1,81 @@
+/* Complete CSS styling for the dashboard */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.header {
+    background: #35424a;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    background: #e8491d;
+    padding: 15px;
+}
+
+.nav a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+.nav a:hover {
+    background: #35424a;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.sidebar {
+    width: 25%;
+    background: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+    width: 70%;
+    background: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #35424a;
+    color: #ffffff;
+}
+
+.card {
+    background: #fafafa;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 20px;
+}
+
+.button {
+    background: #e8491d;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background: #35424a;
+}
