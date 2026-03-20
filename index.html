@@ -3,29 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVALON Security Dashboard</title>
+    <title>AVALON // TACTICAL OS</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Welcome to the AVALON Security Dashboard</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Overview</h2>
-            <p>This is the main page for the AVALON security dashboard.</p>
-        </section>
-        <section>
-            <h2>Current Status</h2>
-            <p>All systems are operational.</p>
-        </section>
-        <section>
-            <h2>Alerts</h2>
-            <p>No new alerts at this time.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 AVALON Security Dashboard</p>
-    </footer>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="header-box">
+                <h1>AVALON v2.1.0</h1>
+                <div class="status-dot"></div> ONLINE
+            </div>
+
+            <div class="operator-card">
+                <div class="label">OPERATOR</div>
+                <div class="rank">JUNIOR SERGEANT</div>
+                <div class="user">TEMUULEN DGC</div>
+                <div class="clearance">CLEARANCE: LEVEL 3</div>
+            </div>
+
+            <div class="metrics">
+                <div class="metric-item">
+                    <label>CPU LOAD</label>
+                    <div class="bar-bg"><div class="bar-fill" id="cpuBar" style="width: 42%;"></div></div>
+                </div>
+                <div class="metric-item">
+                    <label>NETWORK</label>
+                    <div class="bar-bg"><div class="bar-fill" id="netBar" style="width: 18%;"></div></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="terminal-container">
+            <div class="terminal-header">SECURITY_ANALYSIS_TERMINAL.EXE</div>
+            <div id="terminalContent" class="terminal-content">
+                <div class="line">SYSTEM INITIALIZED...</div>
+                <div class="line">ENCRYPTION PROTOCOLS ACTIVE.</div>
+                <div class="line">TYPE 'HELP' FOR COMMANDS.</div>
+            </div>
+            <div class="input-area">
+                <span class="prompt">>></span>
+                <input type="text" id="terminalInput" autofocus placeholder="ENTER COMMAND...">
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
 </body>
 </html>
