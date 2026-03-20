@@ -1,33 +1,66 @@
-// app.js - JavaScript Password Forensic Analysis and Terminal Command Logic
+const terminalInput = document.getElementById('terminalInput');
+const terminalContent = document.getElementById('terminalContent');
+const cpuBar = document.getElementById('cpuBar');
+const netBar = document.getElementById('netBar');
 
-// Function to analyze password strength
-function analyzePassword(password) {
-    const lengthCriteria = password.length >= 8;
-    const numberCriteria = /\d/.test(password);
-    const uppercaseCriteria = /[A-Z]/.test(password);
-    const specialCharCriteria = /[!@#$%^&*]/.test(password);
-
-    return lengthCriteria && numberCriteria && uppercaseCriteria && specialCharCriteria;
+// --- HELPER: ADD LINE ---
+function log(text, type = '') {
+    const line = document.createElement('div');
+    line.className = `line ${type}`;
+    line.innerHTML = `>> ${text}`;
+    terminalContent.appendChild(line);
+    terminalContent.scrollTop = terminalContent.scrollHeight;
 }
 
-// Function to simulate terminal command execution
-function executeCommand(command) {
-    console.log(`Executing command: ${command}`);
-    // Simulated responses for common commands
-    switch(command) {
-        case 'show users':
-            return 'Current users: user1, user2, user3';
-        case 'check password strength':
-            return 'Password strengths: user1: weak, user2: strong, user3: moderate';
-        default:
-            return 'Command not recognized';
+// --- SYSTEM SIMULATION ---
+setInterval(() => {
+    const cpu = Math.floor(Math.random() * 40) + 20;
+    const net = Math.floor(Math.random() * 60) + 5;
+    cpuBar.style.width = cpu + "%";
+    netBar.style.width = net + "%";
+}, 2000);
+
+// --- PASSWORD ANALYSIS LOGIC ---
+function analyze(pass) {
+    if (!pass) return log("ERROR: NO STRING PROVIDED", "error");
+    
+    let entropy = pass.length * 4; // Simple simulation logic
+    log(`ANALYZING STRING: [${pass}]...`);
+    
+    setTimeout(() => {
+        log(`RESULT: ENTROPY ${entropy} BITS`, "success");
+        if (entropy < 30) log("VERDICT: CRITICAL VULNERABILITY", "error");
+        else log("VERDICT: ASSET SECURE", "success");
+    }, 800);
+}
+
+// --- COMMAND HANDLER ---
+terminalInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        const input = terminalInput.value.trim();
+        const [cmd, arg] = input.split(' ');
+        terminalInput.value = '';
+
+        log(input.toUpperCase());
+
+        switch(cmd.toLowerCase()) {
+            case 'help':
+                log("COMMANDS: STATUS, ANALYZE [PASS], CLEAR, ABOUT");
+                break;
+            case 'status':
+                log("SYSTEMS: NOMINAL | OPERATOR: JUNIOR SERGEANT");
+                break;
+            case 'analyze':
+                analyze(arg);
+                break;
+            case 'clear':
+                terminalContent.innerHTML = '';
+                break;
+            case 'about':
+                log("AVALON TERMINAL v2.1 // BUILT FOR FORENSIC OPS");
+                break;
+            default:
+                log("COMMAND NOT RECOGNIZED", "error");
+        }
     }
-}
-
-// Example usage
-const password = "Password123!";
-const isStrong = analyzePassword(password);
-console.log(`Is the password strong? ${isStrong ? 'Yes' : 'No'}`);
-
-const commandOutput = executeCommand('show users');
-console.log(commandOutput);
+});
