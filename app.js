@@ -1,66 +1,74 @@
 const terminalInput = document.getElementById('terminalInput');
 const terminalContent = document.getElementById('terminalContent');
-const cpuBar = document.getElementById('cpuBar');
-const netBar = document.getElementById('netBar');
+const bootScreen = document.getElementById('bootScreen');
+const bootText = document.getElementById('bootText');
 
-// --- HELPER: ADD LINE ---
+// --- 1. BOOT SEQUENCE ---
+const bootLines = [
+    "INITIALIZING AVALON_OS...",
+    "LOADING KERNEL MODULES...",
+    "ESTABLISHING SECURE UPLINK...",
+    "CHECKING OPERATOR CREDENTIALS...",
+    "RANK: JUNIOR SERGEANT VERIFIED.",
+    "ACCESS GRANTED."
+];
+
+let i = 0;
+const bootInterval = setInterval(() => {
+    bootText.innerHTML += `<div>[ OK ] ${bootLines[i]}</div>`;
+    i++;
+    if (i >= bootLines.length) {
+        clearInterval(bootInterval);
+        setTimeout(() => bootScreen.style.display = 'none', 1000);
+    }
+}, 400);
+
+// --- 2. LIVE CLOCK ---
+setInterval(() => {
+    document.getElementById('clock').innerText = new Date().toLocaleTimeString();
+}, 1000);
+
+// --- 3. TERMINAL LOGIC ---
 function log(text, type = '') {
     const line = document.createElement('div');
-    line.className = `line ${type}`;
-    line.innerHTML = `>> ${text}`;
+    line.style.marginBottom = "5px";
+    line.innerHTML = `<span style="color: #00ff41">>></span> <span class="${type}">${text}</span>`;
     terminalContent.appendChild(line);
     terminalContent.scrollTop = terminalContent.scrollHeight;
 }
 
-// --- SYSTEM SIMULATION ---
+// --- 4. SYSTEM METRICS SIMULATION ---
 setInterval(() => {
-    const cpu = Math.floor(Math.random() * 40) + 20;
-    const net = Math.floor(Math.random() * 60) + 5;
-    cpuBar.style.width = cpu + "%";
-    netBar.style.width = net + "%";
-}, 2000);
+    document.getElementById('tempBar').style.width = (Math.random() * 20 + 50) + "%";
+    document.getElementById('netBar').style.width = (Math.random() * 30 + 60) + "%";
+    document.getElementById('ramBar').style.width = (Math.random() * 10 + 20) + "%";
+}, 3000);
 
-// --- PASSWORD ANALYSIS LOGIC ---
-function analyze(pass) {
-    if (!pass) return log("ERROR: NO STRING PROVIDED", "error");
-    
-    let entropy = pass.length * 4; // Simple simulation logic
-    log(`ANALYZING STRING: [${pass}]...`);
-    
-    setTimeout(() => {
-        log(`RESULT: ENTROPY ${entropy} BITS`, "success");
-        if (entropy < 30) log("VERDICT: CRITICAL VULNERABILITY", "error");
-        else log("VERDICT: ASSET SECURE", "success");
-    }, 800);
-}
-
-// --- COMMAND HANDLER ---
+// --- 5. COMMANDS ---
 terminalInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-        const input = terminalInput.value.trim();
-        const [cmd, arg] = input.split(' ');
+        const val = terminalInput.value.trim();
+        const [cmd, ...args] = val.split(' ');
         terminalInput.value = '';
 
-        log(input.toUpperCase());
+        log(val.toUpperCase(), 'user-cmd');
 
         switch(cmd.toLowerCase()) {
             case 'help':
-                log("COMMANDS: STATUS, ANALYZE [PASS], CLEAR, ABOUT");
+                log("AVAILABLE: STATUS, ANALYZE [STRING], CLEAR, PROTOCOL");
                 break;
             case 'status':
-                log("SYSTEMS: NOMINAL | OPERATOR: JUNIOR SERGEANT");
+                log("NODE_01: ACTIVE | ENCRYPTION: AES-256 | LATENCY: 14MS");
                 break;
-            case 'analyze':
-                analyze(arg);
+            case 'protocol':
+                log("INITIATING DEFENSE PROTOCOL 07...", "warning");
+                setTimeout(() => log("PROTOCOL 07: SYSTEM HARDENED.", "success"), 1500);
                 break;
             case 'clear':
                 terminalContent.innerHTML = '';
                 break;
-            case 'about':
-                log("AVALON TERMINAL v2.1 // BUILT FOR FORENSIC OPS");
-                break;
             default:
-                log("COMMAND NOT RECOGNIZED", "error");
+                log("UNKNOWN_COMMAND: ACCESS_DENIED", "error");
         }
     }
 });
